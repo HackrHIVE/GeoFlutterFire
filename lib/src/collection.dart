@@ -92,7 +92,7 @@ class GeoFireCollectionRef {
       final tempQuery = _queryPoint(hash, field);
       return _createStream(tempQuery).map((QuerySnapshot querySnapshot) {
         return querySnapshot.docs
-            .map((element) => DistanceDocSnapshot(element, null))
+            .map((element) => DistanceDocSnapshot(element.data(), null))
             .toList();
       });
     });

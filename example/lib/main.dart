@@ -243,8 +243,8 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  void _updateMarkers(List<DocumentSnapshot> documentList) {
-    documentList.forEach((DocumentSnapshot document) {
+  void _updateMarkers(List<DocumentSnapshot<Map<String, dynamic>>> documentList) {
+    documentList.forEach((DocumentSnapshot<Map<String, dynamic>> document) {
       final GeoPoint point = document.data()['position']['geopoint'];
       _addMarker(point.latitude, point.longitude);
     });
