@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
     _longitudeController = TextEditingController();
 
     geo = Geoflutterfire();
-    GeoFirePoint center = geo.point(latitude: 12.960632, longitude: 77.641603);
+    GeoFirePoint center = geo.point(latitude: 65, longitude: 70);
     stream = radius.switchMap((rad) {
       var collectionReference = _firestore.collection('locations');
 //          .where('name', isEqualTo: 'darshan');
@@ -194,6 +194,7 @@ class _MyAppState extends State<MyApp> {
 //      _showHome();
       //start listening after map is created
       stream.listen((List<DocumentSnapshot> documentList) {
+        print('listMarkers : length :: ' + documentList.length.toString());
         _updateMarkers(documentList);
       });
     });
@@ -243,7 +244,8 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  void _updateMarkers(List<DocumentSnapshot<Map<String, dynamic>>> documentList) {
+  void _updateMarkers(
+      List<DocumentSnapshot<Map<String, dynamic>>> documentList) {
     documentList.forEach((DocumentSnapshot<Map<String, dynamic>> document) {
       final GeoPoint point = document.data()['position']['geopoint'];
       _addMarker(point.latitude, point.longitude);
