@@ -91,9 +91,15 @@ class GeoFireCollectionRef {
     Iterable<Stream<List<DistanceDocSnapshot>>> queries = area.map((hash) {
       final tempQuery = _queryPoint(hash, field);
       return _createStream(tempQuery).map((QuerySnapshot querySnapshot) {
-        return querySnapshot.docs
-            .map((element) => DistanceDocSnapshot(element.data(), null))
-            .toList();
+        List<DistanceDocSnapshot> docs = [];
+        for (int index = 0; index < querySnapshot.docs.length; index++) {
+          DocumentSnapshot doc = querySnapshot.docs[index];
+          docs.add(DistanceDocSnapshot(doc, null));
+        }
+        // return querySnapshot.docs
+        //     .map((element) => DistanceDocSnapshot(element, null))
+        //     .toList();
+        return docs;
       });
     });
 
